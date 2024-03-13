@@ -1,0 +1,24 @@
+name: Static Code Analysis
+
+on:
+  push:
+    branches:
+      - main  # ajusta la rama a la que deseas que se aplique el pipeline
+jobs:
+  static_code_analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npm run lint

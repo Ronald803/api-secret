@@ -1,3 +1,4 @@
-const secretsDataBase = []
+/* eslint-env node */
+let secretsMap = new Map();
 
-module.exports = secretsDataBase;
+module.exports = secretsMap;

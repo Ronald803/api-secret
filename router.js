@@ -1,3 +1,4 @@
+/* eslint-env node */
 const secrets = require('./secret.network');
 
 const routes = (server)=>{

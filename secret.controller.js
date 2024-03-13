@@ -1,4 +1,6 @@
-const secretStore = require('./secret.store');
+/* eslint-env node */
+const secretStore   = require('./secret.store');
+const {config}  = require('./config');
 
 const addNewSecret = (secretText)=>{
     let id = generateRandomKey();
@@ -6,30 +8,23 @@ const addNewSecret = (secretText)=>{
     return {secretKey: id}
 }
 
-const getAllSecrets = ()=>{
-    const allSecrets = secretStore.listAllSecretsDB();
-    return allSecrets
-}
-
 const getSpecificSecret = (id)=>{
     const secret = secretStore.getSpecificSecretDB(id);
-    if(secret.read == false){
-        secretStore.hideSecretDB(secret.index)
-        return {secretMessage: secret.secretText}
-    } else {
-        return false
-    }
+    if(secret != false){
+        secretStore.hideSecretDB(id)
+        return {secretMessage: secret}
+    } 
+    return false
 }
 
 const generateRandomKey = ()=>{
     const allCharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    const longitud = 10;
     let key = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < config.secretSize; i++) {
         let index = Math.floor(Math.random()*allCharacters.length)
         key.push(allCharacters[index])
     }
     return key.join("")
 }
 
-module.exports = {addNewSecret,getAllSecrets,getSpecificSecret}
+module.exports = {addNewSecret,getSpecificSecret}

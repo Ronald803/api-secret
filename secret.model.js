@@ -1,3 +1,4 @@
+/* eslint-env node */
 class SecretClass {
     constructor(secretText,id){
         this.id = id;

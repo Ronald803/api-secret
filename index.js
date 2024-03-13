@@ -1,11 +1,14 @@
+/* eslint-env node */
 const express   = require('express');
 const app       = express();
 const router    = require('./router');
+const {config}  = require('./config');
+
 
 app.use(express.json());
 router(app);
 
-app.listen(3000,()=>{
-    console.log('Escuchando en el puerto 3000');
+app.listen(config.port,()=>{
+    console.log(`Listening on port ${config.port}`);
 })
 

@@ -1,28 +1,20 @@
-const SecretClass       = require('./secret.model');
-const secretsDataBase   = require('./fakeDB');
+/* eslint-env node */
+let secretsMap   = require('./fakeDB');
 
 function addNewSecretDB(secretText,id){
-    const newSecret = new SecretClass(secretText,id);
-    secretsDataBase.push(newSecret);
-}
-
-function listAllSecretsDB(){
-    return secretsDataBase;
+    secretsMap.set(id,secretText);
 }
 
 function getSpecificSecretDB(id){
-    let index = secretsDataBase.findIndex(secret=> secret.id==id)
-    console.log(index);
-    console.log(secretsDataBase[index]);
-    if(index!=-1){
-        return {...secretsDataBase[index],index};
-    } else {
-        return {read:true}
-    }
+    let existSecret = secretsMap.has(id)
+    if(existSecret == true){
+        return {message: secretsMap.get(id)};
+    } 
+    return false
 }
 
-function hideSecretDB(index){
-    secretsDataBase[index].read = true;
+function hideSecretDB(id){
+    secretsMap.delete(id)
 }
 
-module.exports = {addNewSecretDB,listAllSecretsDB,getSpecificSecretDB,hideSecretDB}
+module.exports = {addNewSecretDB,getSpecificSecretDB,hideSecretDB}
