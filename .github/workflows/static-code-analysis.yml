@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: coverage-report
-          path: __tests__/coverage/Icov-report/index.html
+          path: ~/__tests__/coverage/Icov-report/index.html
 
   build_docker_image:
     runs-on: ubuntu-latest
