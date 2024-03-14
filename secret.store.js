@@ -8,7 +8,7 @@ function addNewSecretDB(secretText,id){
 function getSpecificSecretDB(id){
     let existSecret = secretsMap.has(id)
     if(existSecret == true){
-        return {message: secretsMap.get(id)};
+        return secretsMap.get(id);
     } 
     return false
 }

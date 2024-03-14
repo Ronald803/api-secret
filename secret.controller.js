@@ -1,9 +1,9 @@
 /* eslint-env node */
 const secretStore   = require('./secret.store');
-const {config}  = require('./config');
+const config  = require('./config');
 
 const addNewSecret = (secretText)=>{
-    let id = generateRandomKey();
+    let id = generateRandomKey(config);
     secretStore.addNewSecretDB(secretText,id)
     return {secretKey: id}
 }
@@ -17,7 +17,7 @@ const getSpecificSecret = (id)=>{
     return false
 }
 
-const generateRandomKey = ()=>{
+const generateRandomKey = (config)=>{
     const allCharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let key = [];
     for (let i = 0; i < config.secretSize; i++) {
@@ -27,4 +27,4 @@ const generateRandomKey = ()=>{
     return key.join("")
 }
 
-module.exports = {addNewSecret,getSpecificSecret}
+module.exports = {addNewSecret,getSpecificSecret,generateRandomKey}
