@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - ronald_develop
   pull_request:
     branches:
       - main
@@ -29,8 +30,14 @@ jobs:
       - name: Run unit tests
         run: npm run test
 
-      - name: Run end two end tests
-        run: npm run test:e2e
+      - name: Run end two end tests and generate coverage report
+        run: npm run test:e2e -- --coverage
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          from: coverage/Icov-report
 
   build_docker_image:
     runs-on: ubuntu-latest
