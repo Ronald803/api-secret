@@ -22,3 +22,9 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint
+
+      - name: Run unit tests
+        run: npm run test
+
+      - name: Run end two end tests
+        run: npm run test:e2e
