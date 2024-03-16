@@ -52,9 +52,9 @@ jobs:
 
       - name: Push docker image to registry
         run: |
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} docker.io
-          docker tag api_secret_message:latest ${{ secrets.DOCKER_USERNAME }}/api_secret_message:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/api_secret_message:latest
+          docker login -u '${{ secrets.DOCKER_USERNAME }}' -p '${{ secrets.DOCKER_PASSWORD }}' docker.io
+          docker tag api_secret_message:latest '${{ secrets.DOCKER_USERNAME }}'/api_secret_message:latest
+          docker push '${{ secrets.DOCKER_USERNAME }}'/api_secret_message:latest
 
       # - name: Save Docker Image as TAR 
       #   run: docker save -o api_secret_message.tar api_secret_message:latest
