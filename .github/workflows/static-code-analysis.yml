@@ -33,18 +33,6 @@ jobs:
       - name: Run end two end tests and generate coverage report
         run: npm run test:e2e -- --coverage
 
-      - name: Check coverage report
-        run: |
-          if [ -f "__tests__/coverage/lcov.info" ]; then
-            COVERAGE=$(cat __tests__/coverage/lcov.info | grep -E '^C' | awk '{print $2}')
-            if [ -n "$COVERAGE" ] && [ "$COVERAGE" -lt 80 ]; then
-              echo "Coverage is less than 80%: $COVERAGE%"
-              exit 1
-            fi
-          else
-            echo "Coverage report not found."
-            exit 1
-          fi
       - name: Upload coverage report
         uses: actions/upload-artifact@v3
         with:

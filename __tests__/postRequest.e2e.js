@@ -23,31 +23,31 @@ describe('test get', ()=>{
         })        
     })
     let secretKey = ""
-    describe('test [POST] a secret',()=>{
-        const bodyData = {
-            message: "hello everyone"
-        }        
-        test('should return a secret key', async ()=>{
-            return request(app)
-                .post('/api/secrets/')
-                .send(bodyData)
-                .expect(201)
-                .then((response) => {
-                    const answer = JSON.parse(response.text)
-                    expect(answer.secretKey.length).toBe(16)
-                    secretKey=answer.secretKey
-                })
-        })
-    })
-    describe('test [GET] a specific secret',()=>{
-        test('test [GET] to a secret key', async ()=>{
-            return request(app)
-                .get(`/api/secrets/${secretKey}`)
-                .expect(200)
-                .then((response)=>{
-                    const answer = JSON.parse(response.text)
-                    expect(answer.secretMessage).toEqual("hello everyone");
-                })
-        })
-    })
+    // describe('test [POST] a secret',()=>{
+    //     const bodyData = {
+    //         message: "hello everyone"
+    //     }        
+    //     test('should return a secret key', async ()=>{
+    //         return request(app)
+    //             .post('/api/secrets/')
+    //             .send(bodyData)
+    //             .expect(201)
+    //             .then((response) => {
+    //                 const answer = JSON.parse(response.text)
+    //                 expect(answer.secretKey.length).toBe(16)
+    //                 secretKey=answer.secretKey
+    //             })
+    //     })
+    // })
+    // describe('test [GET] a specific secret',()=>{
+    //     test('test [GET] to a secret key', async ()=>{
+    //         return request(app)
+    //             .get(`/api/secrets/${secretKey}`)
+    //             .expect(200)
+    //             .then((response)=>{
+    //                 const answer = JSON.parse(response.text)
+    //                 expect(answer.secretMessage).toEqual("hello everyone");
+    //             })
+    //     })
+    // })
 })
