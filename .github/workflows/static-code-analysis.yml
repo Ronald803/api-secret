@@ -33,6 +33,13 @@ jobs:
       - name: Run end two end tests and generate coverage report
         run: npm run test:e2e -- --coverage
 
+      - name: Check coverage report
+        run: |
+          COVERAGE=$(cat __tests__/coverage/lcov.info | grep -E '^C' | awk '{print $2}')
+          if [ "$COVERAGE" -lt 80 ]; then
+            echo "Coverage is less than 80%: $COVERAGE%"
+            exit 1
+          fi
       - name: Upload coverage report
         uses: actions/upload-artifact@v3
         with:
@@ -50,11 +57,17 @@ jobs:
       - name: Build Docker Image
         run: docker build -t api_secret_message:latest .
 
-      - name: Save Docker Image as TAR 
-        run: docker save -o api_secret_message.tar api_secret_message:latest
+      - name: Push docker image to registry
+        run: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} docker.io
+          docker tag api_secret_message:latest ${{ secrets.DOCKER_USERNAME }}/api_secret_message:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/api_secret_message:latest
+
+      # - name: Save Docker Image as TAR 
+      #   run: docker save -o api_secret_message.tar api_secret_message:latest
       
-      - name: Upload Docker Image TAR
-        uses: actions/upload-artifact@v3
-        with:
-          name: docker-image
-          path: api_secret_message.tar
+      # - name: Upload Docker Image TAR
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: docker-image
+      #     path: api_secret_message.tar
